@@ -1,0 +1,13 @@
+{
+	"name": "markov-db",
+	"description": "get similar things from thingies and shit and stuff",
+	"author": "sprky0 <avery@averyisgreat.com>",
+	"private": true,
+	"repository": "https://github.com/sprky/not-exist-yet.git",
+	"dependencies": {
+		"sqlite3": ">= 0.0.0",
+		"fs": ">= 0.0.0"
+	},
+	"devDependencies": {},
+	"engine": "node >= 0.10.17"
+}
