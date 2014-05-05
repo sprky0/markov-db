@@ -107,4 +107,4 @@ function get_sentence() {
 load(input);
 get_sentence();
 
-db.close();
+// db.close();
