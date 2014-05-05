@@ -35,19 +35,25 @@ function load(text) {
 	// get db and insert shit
 	db.serialize(function() {
 
-		db.run("CREATE TABLE lorem (word TEXT, previous TEXT)");
+		db.run("CREATE TABLE lorem (word TEXT, previous TEXT, next TEXT)");
 
-		var stmt = db.prepare("INSERT INTO lorem VALUES (?, ?)");
+		var stmt = db.prepare("INSERT INTO lorem VALUES (?, ?, ?)");
 
 		for (var a = 0; a < sentences.length; a++) {
 			for (var b = 0; b < sentences[a].length; b++) {
 				var word = sentences[a][b].trim();
 				var previous = "";
+				var next = "";
 				if (b > 0) {
 					previous = sentences[a][b - 1].trim();
 				}
+/*
+				if (b < sentences[a].length - 1) {
+					next = next[a][b + 1].trim();
+				}
+*/
 				if (word != "")
-					stmt.run(word, previous);
+					stmt.run(word, previous, next);
 			}
 		}
 
@@ -83,7 +89,7 @@ function get_sentence() {
 	function _next(word) {
 
 		count--;
-		console.log('looped' + count);
+		console.log('loop ' + count + ' word ' + word);
 		sentence += " " + word;
 
 		if (count > 0) {
