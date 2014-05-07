@@ -1,9 +1,9 @@
 {
 	"name": "markov-db",
-	"description": "get similar things from thingies and shit and stuff",
+	"description": "Generate new possible states based on an input stack.",
 	"author": "sprky0 <avery@averyisgreat.com>",
 	"private" : true,
-	"repository" : "https://github.com/sprky/not-exist-yet.git",
+	"repository" : "https://github.com/sprky/markov-db.git",
 	"dependencies": {
 		"sqlite3" : ">= 0.0.0"
 	},
