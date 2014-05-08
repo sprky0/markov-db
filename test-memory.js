@@ -11,10 +11,10 @@ function dump(stack) {
 // console.log("loading dylan (synchronous)");
 // mdb.loadPoetry(mdb.loadFile("example/dylan.txt"));
 
-console.log("loading rimbaud (synchronous)");
+mdb.log("loading rimbaud (synchronous)");
 db.loadPoetry(mdb.loadFile("example/rimbaud.txt"));
 
-console.log("generating (asynchronous)");
+mdb.log("generating (asynchronous)");
 
 db.getStack(6,dump);
 db.getStack(20,dump);

@@ -7,9 +7,9 @@ function dump(stack) {
 
 // mdb.setOption("verbose",true);
 
-console.log("loading lorem (synchronous)");
+mdb.log("loading lorem (synchronous)");
 db.loadProse(mdb.loadFile("example/lorem.txt"));
 
-console.log("generating (asynchronous)");
-db.getStack(6,dump);
-db.getStack(10,dump);
+mdb.log("generating (asynchronous)");
+
+db.getStack(Math.floor(Math.random() * 20),dump);

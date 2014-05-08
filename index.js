@@ -212,6 +212,7 @@ function getDatabase(db_name) {
 
 }
 
+exports.log = log;
 exports.setOption = setOption;
 exports.getDatabase = getDatabase;
 exports.loadFile = loadFile;
