@@ -55,7 +55,7 @@ function getDatabase(db_name) {
 
 	function clean(text) {
 		return text
-			.replace(/[^A-Za-z0-9 _.,!?"'/$]/g,"")
+			.replace(/[^A-Za-z0-9 _.,!?"'/$]/g," ")
 			.replace(/\s/g," ");
 	}
 
