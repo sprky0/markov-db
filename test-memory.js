@@ -2,7 +2,7 @@ var mdb = require("./index.js");
 var db = mdb.getDatabase();
 
 function dump(stack) {
-	console.log(stack.join(" ") + ".");
+	console.log(stack); // .join(" ") + ".");
 }
 
 // console.log("loading cohen (synchronous)");
