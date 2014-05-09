@@ -37,27 +37,36 @@ function setOption() {
 	}
 }
 
+/**
+ * remove non alpha-nums from a string
+ */
+function removeNonAlphanumerics(text) {
+	return text.replace(/\W/g, '');
+}
+
+/**
+ * collapse white space into a single space character
+ */
+function collapseWhitespace(text) {
+	return text.replace(/\s/,' ');
+}
+
+/**
+ * perform basic cleanup on 'text' assuming roman characters, numeric values, punctuation
+ */
+function clean(text) {
+	return text
+		.replace(/[^A-Za-z0-9 _.,!?"'/$]/g," ")
+		.replace(/\s/g," ");
+}
+
+/**
+ * get a markov DB instance for database name, or pass nothing to use a db in memory
+ */
 function getDatabase(db_name) {
 
 	// create or open database, no param means memory
 	var db = new sqlite3.Database(db_name || ':memory:');
-
-	/**
-	 * remove non alpha-nums from a string
-	 */
-	function removeNonAlphanumerics(text) {
-		return text.replace(/\W/g, '');
-	}
-
-	function collapseWhitespace(text) {
-		return text.replace(/\s/,' ');
-	}
-
-	function clean(text) {
-		return text
-			.replace(/[^A-Za-z0-9 _.,!?"'/$]/g," ")
-			.replace(/\s/g," ");
-	}
 
 	function loadPoetry(text) {
 
@@ -144,7 +153,7 @@ function getDatabase(db_name) {
 				console.log(err);
 			}
 
-			callback(row.current, row.next);
+			callback(row.current, row.next, row.previous);
 
 		});
 
@@ -160,13 +169,57 @@ function getDatabase(db_name) {
 				console.log(err);
 			}
 
-			callback(row.current, row.previous);
+			callback(row.current, row.previous, row.next);
 
 		});
 
 	}
 
 	function getStack(count, callback) {
+
+		count = count || 20;
+		var stack = [];
+
+		function _next(current, next, previous) {
+
+			count--;
+			stack.push(current);
+
+			if (count > 0 || (options.requireEndedness && count <= 0 && next)) {
+				getNext(current,_next);
+			} else {
+				callback(stack);
+			}
+
+		}
+
+		getRandom(_next);
+
+	}
+
+	function getStackFromStart(start, count, callback) {
+
+		count = count || 20;
+		var stack = [start];
+
+		function _next(current, next, previous) {
+
+			count--;
+			stack.push(current);
+
+			if (count > 0 || (options.requireEndedness && count <= 0 && next)) {
+				getNext(current,_next);
+			} else {
+				callback(stack);
+			}
+
+		}
+
+		getNext(start,_next);
+
+	}
+
+	function getStackFromEnd(end, count, callback) {
 
 		count = count || 20;
 		var stack = [];

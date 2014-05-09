@@ -78,18 +78,21 @@ db.getStack(20, function(stack){
 });
 ```
 
-##db.getRandom(callback(row.current, row.next, row.previous))
+##db.getRandom(callback)
 
 Load a random possible state, which will be supplied to **callback**.
+Callback will be passed Strings representing new current state, next, previous.
 
-##db.getNext(current, callback(row.current, row.next, row.previous))
+##db.getNext(current, callback)
 
 Load a possible state which could follow string **current**, which will be supplied to **callback**.
+Callback will be passed Strings representing new current state, next, previous.
 
 ##db.getPrevious(current, callback(row.current, row.next, row.previous))
 
 Load a possible state which could precede string **current**, which will be supplied to **callback**.
+Callback will be passed Strings representing new current state, next, previous.
 
 ##db.closeDatabase()
 
-Does what it says on the label!
+Close the database.
