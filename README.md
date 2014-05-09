@@ -67,9 +67,9 @@ var poem = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiu
 db.loadProse(poem);
 ```
 
-##db.getStack(count,callback(stack))
+##db.getStack(count,callback)
 
-Get a random sequence of length **count**.
+Get a random sequence of length **count**.  Callback will be passed an Array containing the resulting stack.
 
 ```javascript
 var db = mdb.getDatabase();
