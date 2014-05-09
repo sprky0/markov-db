@@ -1,7 +1,7 @@
 markov-db
 ======
 
-Generate new possible states based on input.  Reuse an existing SQLite database, or use a temporary database in memory.
+Generate new possible states based on input.  Reuse an existing SQLite database, or use a temporary database in memory.  Many methods are asynchronous and make use of callbacks.
 
 Methods
 ======
@@ -37,3 +37,59 @@ mdb.setOptions({
 	wordToken : "\t"
 });
 ```
+
+##db.loadMulti(multi)
+
+Import two-dimensional Array **multi** into the database.
+
+```javascript
+db.loadMulti([
+	["the","dog","said","moo"],
+	["cats","are","goofy","monkies"]
+]);
+```
+
+##db.loadPoetry(text)
+
+Load string **text** (which looks like poetry) into the database.
+
+```javascript
+var poem = "Doest thou have any beans?\nNegatory hombre, I am a man of no means.\nThings are not always what they seem.";
+db.loadPoetry(poem);
+```
+
+##db.loadProse(text)
+
+Load string **text** (which looks like prose) into the database.  This method will attempt to isolate alphanumerics, separate sentences into sequences, and load these sequences into the database.
+
+```javascript
+var poem = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+db.loadProse(poem);
+```
+
+##db.getStack(count,callback(stack))
+
+Get a random sequence of length **count**.
+
+```javascript
+var db = mdb.getDatabase();
+db.getStack(20, function(stack){
+	console.log(stack.join(" "));
+});
+```
+
+##db.getRandom(callback(row.current, row.next, row.previous))
+
+Load a random possible state, which will be supplied to **callback**.
+
+##db.getNext(current, callback(row.current, row.next, row.previous))
+
+Load a possible state which could follow string **current**, which will be supplied to **callback**.
+
+##db.getPrevious(current, callback(row.current, row.next, row.previous))
+
+Load a possible state which could precede string **current**, which will be supplied to **callback**.
+
+##db.closeDatabase()
+
+Does what it says on the label!
