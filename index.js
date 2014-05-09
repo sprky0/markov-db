@@ -253,13 +253,23 @@ function getDatabase(db_name) {
 	createTable();
 
 	return {
+
+		// public load methods
 		load : load,
 		loadPoetry : loadPoetry,
 		loadProse : loadProse,
+
+		// public stack methods
 		getStack : getStack,
+		getStackFromEnd : getStackFromEnd,
+		getStackFromStart : getStackFromStart,
+
+		// public state traversal methods
 		getRandom : getRandom,
 		getNext : getNext,
 		getPrevious : getPrevious,
+
+		// db methods
 		closeDatabase : closeDatabase
 	};
 
