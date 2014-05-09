@@ -38,6 +38,14 @@ mdb.setOptions({
 });
 ```
 
+##db.load(stack)
+
+Import an Array **stack** into the database.
+
+```javascript
+db.load(["this","is","a","presplit","sequence","of","states"]);
+```
+
 ##db.loadMulti(multi)
 
 Import two-dimensional Array **multi** into the database.

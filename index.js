@@ -79,7 +79,7 @@ function getDatabase(db_name) {
 			sentences[i] = sentences[i].trim().split(options.wordToken);
 		}
 
-		load(sentences);
+		loadMulti(sentences);
 
 	}
 
@@ -94,27 +94,52 @@ function getDatabase(db_name) {
 			sentences[i] = sentences[i].trim().split(options.wordToken);
 		}
 
-		load(sentences);
+		loadMulti(sentences);
 
 	}
 
 	function load(stack) {
 
-		// get db and insert shit
 		db.serialize(function() {
 
 			var stmt = db.prepare("INSERT INTO lorem VALUES (?, ?, ?)");
 
-			for (var a = 0; a < stack.length; a++) {
-				for (var b = 0; b < stack[a].length; b++) {
-					var word = stack[a][b].trim();
+			for (var a = 0; a < stack[a].length; a++) {
+				var word = stack[a].trim();
+				var previous = "";
+				var next = "";
+				if (a > 0) {
+					previous = stack[a - 1].trim();
+				}
+				if (a < stack.length - 1) {
+					next = stack[a + 1].trim();
+				}
+				if (word != "")
+					stmt.run(word, previous, next);
+			}
+
+			stmt.finalize();
+
+		});
+
+	}
+
+	function loadMulti(multi) {
+
+		db.serialize(function() {
+
+			var stmt = db.prepare("INSERT INTO lorem VALUES (?, ?, ?)");
+
+			for (var a = 0; a < multi.length; a++) {
+				for (var b = 0; b < multi[a].length; b++) {
+					var word = multi[a][b].trim();
 					var previous = "";
 					var next = "";
 					if (b > 0) {
-						previous = stack[a][b - 1].trim();
+						previous = multi[a][b - 1].trim();
 					}
-					if (b < stack[a].length - 1) {
-						next = stack[a][b + 1].trim();
+					if (b < multi[a].length - 1) {
+						next = multi[a][b + 1].trim();
 					}
 					if (word != "")
 						stmt.run(word, previous, next);
@@ -256,6 +281,7 @@ function getDatabase(db_name) {
 
 		// public load methods
 		load : load,
+		loadMulti : loadMulti,
 		loadPoetry : loadPoetry,
 		loadProse : loadProse,
 
