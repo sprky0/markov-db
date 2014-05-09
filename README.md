@@ -54,7 +54,7 @@ db.loadMulti([
 Load string **text** (which looks like poetry) into the database.
 
 ```javascript
-var poem = "Doest thou have any beans?\nNegatory hombre, I am a man of no means.\nThings are not always what they seem.";
+var poem = "Roses are red\nViolets are blue\nThe earth is a cold, dead place";
 db.loadPoetry(poem);
 ```
 
