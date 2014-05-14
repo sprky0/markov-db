@@ -1,4 +1,4 @@
-var mdb = require("./index.js");
+var mdb = require("../index.js");
 var db = mdb.getDatabase();
 
 function dump(stack) {
